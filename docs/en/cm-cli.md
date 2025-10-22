@@ -121,8 +121,9 @@ ComfyUI-Loopchain
   * If no file exists at the snapshot path, it is implicitly assumed to be in ComfyUI-Manager/snapshots.
   * `--pip-non-url`: Restore for pip packages registered on PyPI.
   * `--pip-non-local-url`: Restore for pip packages registered at web URLs.
-  * `--pip-local-url`: Restore for pip packages specified by local paths. 
-
+  * `--pip-local-url`: Restore for pip packages specified by local paths.
+  * `--user-directory`: Set the user directory.
+  * `--restore-to`: The path where the restored custom nodes will be installed. (When this option is applied, only the custom nodes installed in the target path are recognized as installed.)
 
 ### 5. CLI Only Mode
 
@@ -138,7 +139,7 @@ You can set whether to use ComfyUI-Manager solely via CLI.
 `restore-dependencies`
 
 * This command can be used if custom nodes are installed under the `ComfyUI/custom_nodes` path but their dependencies are not installed.
-* It is useful when starting a new cloud instance, like colab, where dependencies need to be reinstalled and installation scripts re-executed.
+* It is useful when starting a new cloud instance, like Colab, where dependencies need to be reinstalled and installation scripts re-executed.
 * It can also be utilized if ComfyUI is reinstalled and only the custom_nodes path has been backed up and restored.
 
 ### 7. Clear

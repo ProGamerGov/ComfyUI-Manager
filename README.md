@@ -2,10 +2,13 @@
 
 **ComfyUI-Manager** is an extension designed to enhance the usability of [ComfyUI](https://github.com/comfyanonymous/ComfyUI). It offers management functions to **install, remove, disable, and enable** various custom nodes of ComfyUI. Furthermore, this extension provides a hub feature and convenience functions to access a wide range of information within ComfyUI.
 
-![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/dialog.jpg)
+![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/refs/heads/Main/ComfyUI-Manager/images/dialog.jpg)
 
 ## NOTICE
-* V3.3.2: Overhauled. Officially supports [https://comfyregistry.org/](https://comfyregistry.org/).
+* V3.16: Support for `uv` has been added. Set `use_uv` in `config.ini`.
+* V3.10: `double-click feature` is removed
+  * This feature has been moved to https://github.com/ltdrdata/comfyui-connection-helper
+* V3.3.2: Overhauled. Officially supports [https://registry.comfy.org/](https://registry.comfy.org/).
 * You can see whole nodes info on [ComfyUI Nodes Info](https://ltdrdata.github.io/) page.
 
 ## Installation
@@ -14,7 +17,7 @@
 
 To install ComfyUI-Manager in addition to an existing installation of ComfyUI, you can follow the following steps:
 
-1. goto `ComfyUI/custom_nodes` dir in terminal(cmd)
+1. Go to `ComfyUI/custom_nodes` dir in terminal (cmd)
 2. `git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager`
 3. Restart ComfyUI
 
@@ -25,8 +28,8 @@ To install ComfyUI-Manager in addition to an existing installation of ComfyUI, y
 - standalone version  
 - select option: use windows default console window
 2. Download [scripts/install-manager-for-portable-version.bat](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-manager-for-portable-version.bat) into installed `"ComfyUI_windows_portable"` directory
-- Don't click. Right click the link and use save as...
-3. double click `install-manager-for-portable-version.bat` batch file
+- Don't click. Right-click the link and choose 'Save As...'
+3. Double-click `install-manager-for-portable-version.bat` batch file
 
 ![portable-install](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/portable-install.jpg)
 
@@ -44,7 +47,7 @@ pip install comfy-cli
 comfy install
 ```
 
-Linux/OSX:
+Linux/macOS:
 ```commandline
 python -m venv venv
 . venv/bin/activate
@@ -54,13 +57,13 @@ comfy install
 * See also: https://github.com/Comfy-Org/comfy-cli
 
 
-### Installation[method4] (Installation for linux+venv: ComfyUI + ComfyUI-Manager)
+### Installation[method4] (Installation for Linux+venv: ComfyUI + ComfyUI-Manager)
 
 To install ComfyUI with ComfyUI-Manager on Linux using a venv environment, you can follow these steps:
 * **prerequisite: python-is-python3, python3-venv, git**
 
 1. Download [scripts/install-comfyui-venv-linux.sh](https://github.com/ltdrdata/ComfyUI-Manager/raw/main/scripts/install-comfyui-venv-linux.sh) into empty install directory
-- Don't click. Right click the link and use save as...
+- Don't click. Right-click the link and choose 'Save As...'
 - ComfyUI will be installed in the subdirectory of the specified directory, and the directory will contain the generated executable script.
 2. `chmod +x install-comfyui-venv-linux.sh`
 3. `./install-comfyui-venv-linux.sh`
@@ -93,7 +96,7 @@ This repository provides Colab notebooks that allow you to install and use Comfy
 
 2. If you click on 'Install Custom Nodes' or 'Install Models', an installer dialog will open.
 
-    ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/dialog.jpg)
+    ![menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/refs/heads/Main/ComfyUI-Manager/images/dialog.jpg)
 
     * There are three DB modes: `DB: Channel (1day cache)`, `DB: Local`, and `DB: Channel (remote)`. 
       * `Channel (1day cache)` utilizes Channel cache information with a validity period of one day to quickly display the list.
@@ -146,6 +149,8 @@ In `ComfyUI-Manager` V3.0 and later, configuration files and dynamically generat
 * Basic config files: `<USER_DIRECTORY>/default/ComfyUI-Manager/config.ini`
 * Configurable channel lists: `<USER_DIRECTORY>/default/ComfyUI-Manager/channels.ini`
 * Configurable pip overrides: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_overrides.json`
+* Configurable pip blacklist: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_blacklist.list`
+* Configurable pip auto fix: `<USER_DIRECTORY>/default/ComfyUI-Manager/pip_auto_fix.list`
 * Saved snapshot files: `<USER_DIRECTORY>/default/ComfyUI-Manager/snapshots`
 * Startup script files: `<USER_DIRECTORY>/default/ComfyUI-Manager/startup-scripts`
 * Component files: `<USER_DIRECTORY>/default/ComfyUI-Manager/components`
@@ -171,7 +176,7 @@ The following settings are applied based on the section marked as `is_default`.
 ![model-install-dialog](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/snapshot.jpg)
 
 
-## cm-cli: command line tools for power user
+## cm-cli: command line tools for power users
 * A tool is provided that allows you to use the features of ComfyUI-Manager without running ComfyUI.
 * For more details, please refer to the [cm-cli documentation](docs/en/cm-cli.md).
 
@@ -185,17 +190,18 @@ The following settings are applied based on the section marked as `is_default`.
 
 ## Custom node support guide
 
+* **NOTICE:**
+    - You should no longer assume that the GitHub repository name will match the subdirectory name under `custom_nodes`. The name of the subdirectory under `custom_nodes` will now use the normalized name from the `name` field in `pyproject.toml`.
+    - Avoid relying on directory names for imports whenever possible.
+
 * https://docs.comfy.org/registry/overview
+* https://github.com/Comfy-Org/rfcs
 
-
-* **Special purpose files** (optional)
+**Special purpose files** (optional)
+  * `pyproject.toml` - Spec file for comfyregistry.
   * `node_list.json` - When your custom nodes pattern of NODE_CLASS_MAPPINGS is not conventional, it is used to manually provide a list of nodes for reference. ([example](https://github.com/melMass/comfy_mtb/raw/main/node_list.json))
   * `requirements.txt` - When installing, this pip requirements will be installed automatically 
   * `install.py` - When installing, it is automatically called
-  * `uninstall.py` - When uninstalling, it is automatically called
-  * `disable.py` - When disabled, it is automatically called
-    * When installing a custom node setup `.js` file, it is recommended to write this script for disabling.
-  * `enable.py` - When enabled, it is automatically called
   * **All scripts are executed from the root path of the corresponding custom node.**
 
 
@@ -216,7 +222,7 @@ The following settings are applied based on the section marked as `is_default`.
   * `<current timestamp>` Ensure that the timestamp is always unique.
     * "components" should have the same structure as the content of the file stored in `<USER_DIRECTORY>/default/ComfyUI-Manager/components`.
       * `<component name>`: The name should be in the format `<prefix>::<node name>`.
-        * `<compnent nodeata>`: In the nodedata of the group node.
+        * `<component node data>`: In the node data of the group node.
           * `<version>`: Only two formats are allowed: `major.minor.patch` or `major.minor`. (e.g. `1.0`, `2.2.1`)
           * `<datetime>`: Saved time
           * `<packname>`: If the packname is not empty, the category becomes packname/workflow, and it is saved in the <packname>.pack file in `<USER_DIRECTORY>/default/ComfyUI-Manager/components`.
@@ -234,7 +240,7 @@ The following settings are applied based on the section marked as `is_default`.
 * Dragging and dropping or pasting a single component will add a node. However, when adding multiple components, nodes will not be added.
 
 
-## Support of missing nodes installation
+## Support for installing missing nodes
 
 ![missing-menu](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/missing-menu.jpg)
 
@@ -243,14 +249,40 @@ The following settings are applied based on the section marked as `is_default`.
 ![missing-list](https://raw.githubusercontent.com/ltdrdata/ComfyUI-extension-tutorials/Main/ComfyUI-Manager/images/missing-list.jpg)
 
 
+# Config
+* You can modify the `config.ini` file to apply the settings for ComfyUI-Manager.
+    * The path to the `config.ini` used by ComfyUI-Manager is displayed in the startup log messages.
+    * See also: [https://github.com/ltdrdata/ComfyUI-Manager#paths]
+* Configuration options:
+    ```
+    [default]
+    git_exe = <Manually specify the path to the git executable. If left empty, the default git executable path will be used.>
+    use_uv = <Use uv instead of pip for dependency installation.>
+    default_cache_as_channel_url = <Determines whether to retrieve the DB designated as channel_url at startup>
+    bypass_ssl = <Set to True if SSL errors occur to disable SSL.>
+    file_logging = <Configure whether to create a log file used by ComfyUI-Manager.>
+    windows_selector_event_loop_policy = <If an event loop error occurs on Windows, set this to True.>
+    model_download_by_agent = <When downloading models, use an agent instead of torchvision_download_url.>
+    downgrade_blacklist = <Set a list of packages to prevent downgrades. List them separated by commas.>
+    security_level = <Set the security level => strong|normal|normal-|weak>
+    always_lazy_install = <Whether to perform dependency installation on restart even in environments other than Windows.>
+    network_mode = <Set the network mode => public|private|offline>
+    ```
+
+    * network_mode:
+      - public: An environment that uses a typical public network.
+      - private: An environment that uses a closed network, where a private node DB is configured via `channel_url`. (Uses cache if available)
+      - offline: An environment that does not use any external connections when using an offline network. (Uses cache if available)
+
+
 ## Additional Feature
 * Logging to file feature
   * This feature is enabled by default and can be disabled by setting `file_logging = False` in the `config.ini`.
 
-* Fix node(recreate): When right-clicking on a node and selecting `Fix node (recreate)`, you can recreate the node. The widget's values are reset, while the connections maintain those with the same names.
+* Fix node (recreate): When right-clicking on a node and selecting `Fix node (recreate)`, you can recreate the node. The widget's values are reset, while the connections maintain those with the same names.
   * It is used to correct errors in nodes of old workflows created before, which are incompatible with the version changes of custom nodes.
 
-* Double-Click Node Title: You can set the double click behavior of nodes in the ComfyUI-Manager menu.
+* Double-Click Node Title: You can set the double-click behavior of nodes in the ComfyUI-Manager menu.
   * `Copy All Connections`, `Copy Input Connections`: Double-clicking a node copies the connections of the nearest node.
     * This action targets the nearest node within a straight-line distance of 1000 pixels from the center of the node.
     * In the case of `Copy All Connections`, it duplicates existing outputs, but since it does not allow duplicate connections, the existing output connections of the original node are disconnected.
@@ -271,12 +303,40 @@ The following settings are applied based on the section marked as `is_default`.
 * Custom pip mapping
   * When you create the `pip_overrides.json` file, it changes the installation of specific pip packages to installations defined by the user.
     * Please refer to the `pip_overrides.json.template` file.
-    
+
+* Prevent the installation of specific pip packages
+  * List the package names one per line in the `pip_blacklist.list` file.
+
+* Automatically Restoring pip Installation
+ * If you list pip spec requirements in `pip_auto_fix.list`, similar to `requirements.txt`, it will automatically restore the specified versions when starting ComfyUI or when versions get mismatched during various custom node installations.
+ * `--index-url` can be used.
+
 * Use `aria2` as downloader
   * [howto](docs/en/use_aria2.md)
 
-* If you add the item `skip_migration_check = True` to `config.ini`, it will not check whether there are nodes that can be migrated at startup.
-  * This option can be used if performance issues occur in a Colab+GDrive environment.
+
+## Environment Variables
+
+The following features can be configured using environment variables:
+
+* **COMFYUI_PATH**: The installation path of ComfyUI
+* **GITHUB_ENDPOINT**: Reverse proxy configuration for environments with limited access to GitHub
+* **HF_ENDPOINT**: Reverse proxy configuration for environments with limited access to Hugging Face
+
+
+### Example 1:
+Redirecting `https://github.com/ltdrdata/ComfyUI-Impact-Pack` to `https://mirror.ghproxy.com/https://github.com/ltdrdata/ComfyUI-Impact-Pack`
+
+```
+GITHUB_ENDPOINT=https://mirror.ghproxy.com/https://github.com
+```
+
+#### Example 2:
+Changing `https://huggingface.co/path/to/somewhere` to `https://some-hf-mirror.com/path/to/somewhere`
+
+```
+HF_ENDPOINT=https://some-hf-mirror.com 
+```
 
 ## Scanner
 When you run the `scan.sh` script:
@@ -288,7 +348,7 @@ When you run the `scan.sh` script:
 
 * It updates the `github-stats.json`.
   * This uses the GitHub API, so set your token with `export GITHUB_TOKEN=your_token_here` to avoid quickly reaching the rate limit and malfunctioning.
-  * To skip this step, add the `--skip-update-stat` option.
+  * To skip this step, add the `--skip-stat-update` option.
 
 * The `--skip-all` option applies both `--skip-update` and `--skip-stat-update`.
 
@@ -296,10 +356,11 @@ When you run the `scan.sh` script:
 ## Troubleshooting
 * If your `git.exe` is installed in a specific location other than system git, please install ComfyUI-Manager and run ComfyUI. Then, specify the path including the file name in `git_exe = ` in the `<USER_DIRECTORY>/default/ComfyUI-Manager/config.ini` file that is generated.
 * If updating ComfyUI-Manager itself fails, please go to the **ComfyUI-Manager** directory and execute the command `git update-ref refs/remotes/origin/main a361cc1 && git fetch --all && git pull`.
-* If you encounter the error message `Overlapped Object has pending operation at deallocation on Comfyui Manager load` under Windows
+* If you encounter the error message `Overlapped Object has pending operation at deallocation on ComfyUI Manager load` under Windows
   * Edit `config.ini` file: add `windows_selector_event_loop_policy = True`
-* if `SSL: CERTIFICATE_VERIFY_FAILED` error is occured.
+* If the `SSL: CERTIFICATE_VERIFY_FAILED` error occurs.
   * Edit `config.ini` file: add `bypass_ssl = True`
+
 
 ## Security policy
   * Edit `config.ini` file: add `security_level = <LEVEL>`
