@@ -11,7 +11,7 @@ python -m pip install torch torchvision torchaudio --extra-index-url https://dow
 python -m pip install -r requirements.txt
 python -m pip install -r custom_nodes/comfyui-manager/requirements.txt
 python -m pip install --no-dependencies pytorch360convert
-python -m pip install hf_transfer
+python -m pip install hf_transfer gguf
 cd ..
 echo "#!/bin/bash" > run_gpu.sh
 echo "cd ComfyUI" >> run_gpu.sh
