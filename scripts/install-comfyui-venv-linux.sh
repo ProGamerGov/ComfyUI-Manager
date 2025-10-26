@@ -4,6 +4,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager
 git clone https://github.com/city96/ComfyUI-GGUF ComfyUI-GGUF
 git clone https://github.com/ProGamerGov/ComfyUI_pytorch360convert ComfyUI_pytorch360convert
 git clone https://github.com/ProGamerGov/ComfyUI_pytorch360convert_video ComfyUI_pytorch360convert_video
+git clone https://github.com/ProGamerGov/ComfyUI_preview360panorama ComfyUI_preview360panorama
 git clone https://github.com/ssitu/ComfyUI_UltimateSDUpscale ComfyUI_UltimateSDUpscale
 cd ..
 python -m venv venv
